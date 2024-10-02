@@ -12,6 +12,7 @@ const TableOrders = ({items}) => {
                 <th>Data/Hora</th>
                 <th>Valor</th>
                 <th>Estado</th>
+                <th>Ações</th>
             </tr>
             </thead>
             <tbody>

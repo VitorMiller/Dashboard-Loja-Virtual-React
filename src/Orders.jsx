@@ -3,17 +3,20 @@ import './App.css';
 import NoOrders from './NoOrders';
 import TableOrders from './TableOrders';
 import axios from 'axios';
+import ModalConfirm from './ModalConfirm';
 
 const Orders = () => {
  
   const [orders, setOrders] = useState([]);  
-  const ordersApi = "http://127.0.0.1:8000/admin/obter_pedidos_por_estado/pendente";
+  const [orderState, setOrderState] = useState("pendente")
+  
 
-  const loadOrders = () => {
+  const loadOrders = (state) => {
+    const ordersApi = `http://127.0.0.1:8000/admin/obter_pedidos_por_estado/${state}`;
     axios.get(ordersApi).then((response) => {setOrders(response.data)}).catch((error) => {console.log(error)})
   }
 
-  useEffect(() => {loadOrders()},[]);
+  useEffect(() => {loadOrders(orderState)},[orderState]);
 //   const produtos = [
 //     {id:1, nome:"Banana", preco:2.9, estoque:25},
 //     {id:2, nome:"Morango", preco:4.9, estoque:31},
@@ -23,9 +26,34 @@ const Orders = () => {
 //     {id:6, nome:"Mamão", preco:7.9, estoque:13},
 //     {id:7, nome:"Abacate", preco:1.9, estoque:17},
 //   ];
+
+// const handleModalCancelClick = () => {
+
+// }
   
   return (
-    orders.length > 0 ? <TableOrders items={orders} /> : <NoOrders />
+    <>
+      <div className="form-floating my-3">
+        <select id="orderState" value={orderState} onChange={(event) => setOrderState(event.target.value)} className='form-control'>
+          <option value="carrinho">Carrinho</option>
+          <option value="pendente">Pendente</option>
+          <option value="pago">Pago</option>
+          <option value="faturado">Faturado</option>
+          <option value="separado">Separado</option>
+          <option value="enviado">Enviado</option>
+          <option value="entregue">Entregue</option>
+          <option value="cancelado">Cancelado</option>
+        </select>
+        <label htmlFor="orderState" className='form-label'>Estado do Pedido:</label>
+      </div>
+
+        {orders.length > 0 ? 
+        <>
+          <ModalConfirm modalId="modalCancelOrder" question="Deseja realmente cancelar o pedido?" />
+          <TableOrders items={orders} />
+        </>:
+        <NoOrders state={orderState} />}
+    </>
   )
 }
 export default Orders
