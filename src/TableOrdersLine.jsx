@@ -1,12 +1,6 @@
 import { NumberFormatter, DateTimeFormatter, CurrencyFormatter, StringFormatter } from "./formatters"
 
-const TableOrdersLine = ({item}) => {
-
-
-  const handleCancelOrder = (orderId) => {
-    const modal = new bootstrap.Modal(document.getElementById('modalCancelOrder'));
-    modal.show();
-  }
+const TableOrdersLine = ({item, handleCancelOrder, handleEvolveOrder}) => {
 
 
   return (
@@ -19,12 +13,14 @@ const TableOrdersLine = ({item}) => {
               <button className="btn btn-outline-info btn-sm me-1" title="Ver Detalhes">
                 <i className="bi bi-zoom-in"></i>
               </button>
-              <button className="btn btn-outline-success btn-sm me-1" title="Progredir Estado">
+              {(!["cancelado", "entregue"].includes(item.estado)) &&
+              <button className="btn btn-outline-success btn-sm me-1" title="Progredir Estado" onClick={() => handleEvolveOrder(item.id)}>
                 <i className="bi bi-arrow-right-circle"></i>
-              </button>
+              </button>}
+              {(item.estado == "pendente") &&
               <button className="btn btn-outline-danger btn-sm" title="Cancelar Pedido" onClick={() => handleCancelOrder(item.id)}>
                 <i className="bi bi-x-circle"></i>
-              </button>
+              </button>}
             </td>
         </tr>
   )

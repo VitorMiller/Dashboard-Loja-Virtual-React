@@ -1,7 +1,7 @@
 import React from "react";
 import TableOrdersLine from "./TableOrdersLine";
 
-const TableOrders = ({items}) => {
+const TableOrders = ({items, handleCancelOrder, handleEvolveOrder}) => {
 
   return (
 
@@ -16,7 +16,7 @@ const TableOrders = ({items}) => {
             </tr>
             </thead>
             <tbody>
-                {items.map(o => <TableOrdersLine item={o} key={o.id}/>)}
+                {items.map(o => <TableOrdersLine item={o} key={o.id} handleCancelOrder={handleCancelOrder} handleEvolveOrder={handleEvolveOrder} />)}
             </tbody>
         </table> 
 

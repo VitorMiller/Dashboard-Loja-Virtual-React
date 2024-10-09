@@ -2,15 +2,19 @@ import { useEffect, useState } from 'react';
 import './App.css';
 import NoProducts from './NoProducts';
 import TableProducts from './TableProducts';
-import axios from 'axios';
+import api from './axiosApi';
+import Loading from './Loading';
 
 const Products = () => {
  
   const [products, setProducts] = useState([]);  
-  const productsApi = "http://127.0.0.1:8000/admin/obter_produtos";
+  const[loading, setLoading] = useState(true);
 
+  
   const loadProducts = () => {
-    axios.get(productsApi).then((response) => {setProducts(response.data)}).catch((error) => {console.log(error)})
+    setLoading(true);
+    const productsEndpoint = "obter_produtos";
+    api.get(productsEndpoint).then((response) => {setProducts(response.data)}).catch((error) => {console.log(error)}).finally(() => {setLoading(false)});
   }
 
   useEffect(() => {loadProducts()},[]);
@@ -25,7 +29,10 @@ const Products = () => {
 //   ];
   
   return (
-    products.length > 0 ? <TableProducts items={products} /> : <NoProducts />
+    <>
+      {products.length > 0 ? <TableProducts items={products} /> : ( !loading && <NoProducts />)}
+      {loading && <Loading />}
+    </>
   )
 }
 export default Products
