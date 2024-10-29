@@ -1,4 +1,6 @@
 import { NumberFormatter, DateTimeFormatter, CurrencyFormatter, StringFormatter } from "./formatters"
+import { Link } from "react-router-dom"
+
 
 const TableOrdersLine = ({item, handleCancelOrder, handleEvolveOrder}) => {
 
@@ -10,10 +12,10 @@ const TableOrdersLine = ({item, handleCancelOrder, handleEvolveOrder}) => {
             <td>{CurrencyFormatter.format(item.valor_total)}</td>
             <td>{StringFormatter.Capitalize(item.estado)}</td>
             <td>
-              <button className="btn btn-outline-info btn-sm me-1" title="Ver Detalhes">
+              <Link className="btn btn-outline-info btn-sm me-1" title="Ver Detalhes" to={`/orders/${item.id}`}>
                 <i className="bi bi-zoom-in"></i>
-              </button>
-              {(!["cancelado", "entregue"].includes(item.estado)) &&
+              </Link>
+              {(!["carrinho", "pendente","cancelado", "entregue"].includes(item.estado)) &&
               <button className="btn btn-outline-success btn-sm me-1" title="Progredir Estado" onClick={() => handleEvolveOrder(item.id)}>
                 <i className="bi bi-arrow-right-circle"></i>
               </button>}
