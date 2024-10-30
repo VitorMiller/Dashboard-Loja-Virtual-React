@@ -12,7 +12,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);  
   const [orderState, setOrderState] = useState("pendente");
   const [selectedOrderId, setSelectedOrderId] = useState(0);
-  const[loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   
 
   const loadOrders = (state) => {
