@@ -16,19 +16,19 @@ const Users = () => {
   const loadUsers = () => {
     
     setLoading(true);
-    // const usersEndpoint = "obter_usuarios";
-    // api.get(usersEndpoint).then((response) => {setUsers(response.data)}).catch((error) => {console.log(error)}).finally(() => {setLoading(false)});
+    const usersEndpoint = "obter_usuarios";
+    api.get(usersEndpoint).then((response) => {setUsers(response.data)}).catch((error) => {console.log(error)}).finally(() => {setLoading(false)});
     
-    const users = [
-    {id:1, nome:"Vitor", email:"vitor@email.com", telefone:"28999680226"},
-    {id:2, nome:"Vitor 2", email:"vitor@email.com", telefone:"28999680226"},
-    {id:3, nome:"Vitor 3", email:"vitor@email.com", telefone:"28999680226"},
-    {id:4, nome:"Vitor 4", email:"vitor@email.com", telefone:"28999680226"},
-    {id:5, nome:"Vitor 5", email:"vitor@email.com", telefone:"28999680226"},
-  ];
+  //   const users = [
+  //   {id:1, nome:"Vitor", email:"vitor@email.com", telefone:"28999680226"},
+  //   {id:2, nome:"Vitor 2", email:"vitor@email.com", telefone:"28999680226"},
+  //   {id:3, nome:"Vitor 3", email:"vitor@email.com", telefone:"28999680226"},
+  //   {id:4, nome:"Vitor 4", email:"vitor@email.com", telefone:"28999680226"},
+  //   {id:5, nome:"Vitor 5", email:"vitor@email.com", telefone:"28999680226"},
+  // ];
 
-    setUsers(users)
-    setLoading(false)
+  //   setUsers(users)
+  //   setLoading(false)
   }
 
 
