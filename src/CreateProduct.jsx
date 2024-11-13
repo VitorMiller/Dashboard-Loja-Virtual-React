@@ -11,6 +11,7 @@ const CreateProduct = () => {
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
+    const [file, setFile] = useState(null);
     const navigate = useNavigate();
 
 
@@ -18,7 +19,14 @@ const CreateProduct = () => {
         event.preventDefault();
         setLoading(true);
         const insertProductEndpoint = "admin/inserir_produto";
-        await api.post(insertProductEndpoint, inputs)
+
+        const formData = new FormData();
+        Object.entries(inputs).forEach(([key, value])=> {formData.append(key,value);       
+        });
+        if(file){
+            formData.append("imagem", file);
+        }
+        await api.postForm(insertProductEndpoint, formData, {headers:{"Content-Type": "multipart/form-data"},})
             .then((response) => {
                 if (response.status === 201) {
                     navigate("/products");
@@ -39,7 +47,9 @@ const CreateProduct = () => {
         handleChange(event, inputs, setInputs);
     }
 
-
+    function handleFileChange(event){
+        setFile(event.target.files[0]);
+    }
 
     return (
         <>
@@ -47,7 +57,7 @@ const CreateProduct = () => {
                 <h1>Cadastro de Produto</h1>
             </div>
             <form className='mb-3' onSubmit={handleSubmit} noValidate autoComplete='off'>
-                <ProductForm handleChange={localHandleChange} inputs={inputs} errors={errors} />
+                <ProductForm handleChange={localHandleChange} inputs={inputs} errors={errors} handleFileChange={handleFileChange} />
                 <FormButtons cancelTarget="/products" />
             </form>
             {loading && <Loading />}
