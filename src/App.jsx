@@ -8,6 +8,7 @@ import OrderDetails from "./OrderDetails";
 import EditProduct from "./EditProduct";
 import Users from "./Users";
 import Authorization from "./Authorization";
+import CreateProduct from "./CreateProduct";
 
 const App = () => {
     return (
@@ -20,6 +21,7 @@ const App = () => {
                     <Route path="/products/:id" element={<Authorization><EditProduct /></Authorization>} />
                     <Route path="/orders" element={<Authorization><Orders /></Authorization>} />
                     <Route path="/orders/:id" element={<Authorization><OrderDetails /></Authorization>} />
+                    <Route path="/createProduct/" element={<Authorization><CreateProduct /></Authorization>} />
                 </Route>
                 <Route path="*" element={<NotFound />} />
             </Routes>

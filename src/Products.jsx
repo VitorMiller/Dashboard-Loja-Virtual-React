@@ -4,6 +4,7 @@ import TableProducts from "./TableProducts";
 import api from "./axiosApi";
 import Loading from "./Loading";
 import ModalConfirm from "./ModalConfirm";
+import { Link } from "react-router-dom";
 
 const Products = () => {
     const [products, setProducts] = useState([]);
@@ -52,6 +53,11 @@ const Products = () => {
 
     return (
         <>
+            <div className="d-flex justify-content-end">
+              <Link to={`/createProduct/`} className="btn btn-success mt-2 mb-2" title="Criar">
+                Adicionar Produto
+              </Link>
+            </div>
             {products.length > 0 ?
                 <>
                     <ModalConfirm modalId="modalDeleteProduct" question="Deseja realmente excluir o produto?" confirmAction={() => deleteProduct(selectedProductId)} />

@@ -35,7 +35,7 @@ const ProductForm = ({ handleChange, inputs, errors }) => {
 
 ProductForm.propTypes = {
     handleChange: PropTypes.func.isRequired,
-    inputs: PropTypes.object.isRequired,
+    inputs: PropTypes.object,
     errors: PropTypes.object
 };
 
