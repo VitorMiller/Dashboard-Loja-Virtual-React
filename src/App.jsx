@@ -1,30 +1,30 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Layout from "./Layout"
-import Home from "./Home"
-import Products from "./Products"
-import NotFound from "./NotFound"
-import Orders from "./Orders"
-import OrderDetails from "./OrderDetails"
-import Users from "./Users"
-import EditProduct from "./EditProduct"
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Products from "./Products";
+import Home from "./Home";
+import Layout from "./Layout";
+import NotFound from "./NotFound";
+import Orders from "./Orders";
+import OrderDetails from "./OrderDetails";
+import EditProduct from "./EditProduct";
+import Users from "./Users";
+import Authorization from "./Authorization";
 
 const App = () => {
- 
-  
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Layout/>} >
-          <Route index element={<Home/>} />
-          <Route path="/products" element={<Products/>} />
-          <Route path="/products/:id" element={<EditProduct/>} />
-          <Route path="/orders" element={<Orders/>} />
-          <Route path="/orders/:id" element={<OrderDetails/>} />
-          <Route path="/users" element={<Users/>} />
-        </Route>
-        <Route path="*" element={<NotFound/>} />
-      </Routes>
-    </BrowserRouter>
-  )
+    return (
+        <BrowserRouter>
+            <Routes>
+                <Route path="/" element={<Layout />}>
+                    <Route index element={<Home />} />
+                    <Route path="/users" element={<Authorization><Users /></Authorization>} />
+                    <Route path="/products" element={<Authorization><Products /></Authorization>} />
+                    <Route path="/products/:id" element={<Authorization><EditProduct /></Authorization>} />
+                    <Route path="/orders" element={<Authorization><Orders /></Authorization>} />
+                    <Route path="/orders/:id" element={<Authorization><OrderDetails /></Authorization>} />
+                </Route>
+                <Route path="*" element={<NotFound />} />
+            </Routes>
+        </BrowserRouter>
+    );
 }
-export default App
+
+export default App;

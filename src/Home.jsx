@@ -1,10 +1,14 @@
-import Footer from './Footer';
-import Header from './Header';
+import { isAdmin } from "./authService";
+import HomeLogin from "./HomeLogin";
+import HomeLogout from "./HomeLogout";
 
 const Home = () => {
-  
-  return (
-    <h1>Página Principal</h1>
-  )
+    return (
+        <>
+            {!isAdmin() && <HomeLogin />}
+            {isAdmin() && <HomeLogout />}
+        </>
+    )
 }
-export default Home
+
+export default Home;

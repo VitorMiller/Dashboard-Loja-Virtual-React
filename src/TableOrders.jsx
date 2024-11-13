@@ -1,26 +1,29 @@
-import React from "react";
+import PropTypes from 'prop-types';
 import TableOrdersLine from "./TableOrdersLine";
 
-const TableOrders = ({items, handleCancelOrder, handleEvolveOrder}) => {
-
-  return (
-
+const TableOrders = ({ items, handleCancelOrder, handleEvolveOrder }) => {
+    return (
         <table className="table table-striped">
             <thead>
-            <tr>
-                <th>Id</th>
-                <th>Data/Hora</th>
-                <th>Valor</th>
-                <th>Estado</th>
-                <th>Ações</th>
-            </tr>
+                <tr>
+                    <th>Código</th>
+                    <th>Data/Hora</th>
+                    <th>Valor Total</th>
+                    <th>Estado</th>
+                    <th>Ações</th>
+                </tr>
             </thead>
             <tbody>
                 {items.map(o => <TableOrdersLine item={o} key={o.id} handleCancelOrder={handleCancelOrder} handleEvolveOrder={handleEvolveOrder} />)}
             </tbody>
-        </table> 
-
-  )
+        </table>
+    );
 }
+
+TableOrders.propTypes = {
+    items: PropTypes.array.isRequired,
+    handleCancelOrder: PropTypes.func.isRequired,
+    handleEvolveOrder: PropTypes.func.isRequired
+};
 
 export default TableOrders;
