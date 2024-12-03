@@ -34,6 +34,7 @@ const EditProduct = () => {
     }
 
     async function handleSubmit(event) {
+        console.log(inputs);
         event.preventDefault();
         setLoading(true);
         const editProductEndpoint = "admin/alterar_produto";

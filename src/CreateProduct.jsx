@@ -19,7 +19,6 @@ const CreateProduct = () => {
         event.preventDefault();
         setLoading(true);
         const insertProductEndpoint = "admin/inserir_produto";
-
         const formData = new FormData();
         Object.entries(inputs).forEach(([key, value])=> {formData.append(key,value);       
         });
