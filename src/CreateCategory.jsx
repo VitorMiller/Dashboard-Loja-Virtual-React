@@ -1,5 +1,5 @@
 import { useNavigate } from 'react-router-dom';
-import ProductForm from './ProductForm';
+import CategoryForm from './CategoryForm';
 import { useState } from 'react';
 import api from "./axiosApi";
 import FormButtons from './FormButtons';
@@ -7,29 +7,29 @@ import handleChange from './handleChange';
 import parseErrors from './parseErrors';
 import Loading from './Loading';
 
-const CreateProduct = () => {
+const CreateCategory = () => {
     const [inputs, setInputs] = useState({});
     const [errors, setErrors] = useState({});
     const [loading, setLoading] = useState(false);
-    const [file, setFile] = useState(null);
+    // const [file, setFile] = useState(null);
     const navigate = useNavigate();
 
 
     async function handleSubmit(event) {
         event.preventDefault();
         setLoading(true);
-        const insertProductEndpoint = "admin/inserir_produto";
+        const insertCategoryEndpoint = "admin/inserir_categoria";
 
         const formData = new FormData();
         Object.entries(inputs).forEach(([key, value])=> {formData.append(key,value);       
         });
-        if(file){
-            formData.append("imagem", file);
-        }
-        await api.postForm(insertProductEndpoint, formData, {headers:{"Content-Type": "multipart/form-data"},})
+        // if(file){
+        //     formData.append("imagem", file);
+        // }
+        await api.postForm(insertCategoryEndpoint, formData, {headers:{"Content-Type": "multipart/form-data"},})
             .then((response) => {
                 if (response.status === 201) {
-                    navigate("/products");
+                    navigate("/categories");
                 } else {
                     console.log(response);
                 }
@@ -47,22 +47,22 @@ const CreateProduct = () => {
         handleChange(event, inputs, setInputs);
     }
 
-    function handleFileChange(event){
-        setFile(event.target.files[0]);
-    }
+    // function handleFileChange(event){
+    //     setFile(event.target.files[0]);
+    // }
 
     return (
         <>
            <div className="d-flex justify-content-between align-items-center">
-                <h1>Cadastro de Produto</h1>
+                <h1>Cadastro de Categoria</h1>
             </div>
             <form className='mb-3' onSubmit={handleSubmit} noValidate autoComplete='off'>
-                <ProductForm handleChange={localHandleChange} inputs={inputs} errors={errors} handleFileChange={handleFileChange} />
-                <FormButtons cancelTarget="/products" />
+                <CategoryForm handleChange={localHandleChange} inputs={inputs} errors={errors}  />
+                <FormButtons cancelTarget="/categories" />
             </form>
             {loading && <Loading />}
         </>
     );
 }
 
-export default CreateProduct;
+export default CreateCategory;
